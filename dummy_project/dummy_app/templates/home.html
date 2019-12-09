@@ -1,8 +1,42 @@
 <div>
-  <form action="kn_classification/" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="KN CLASSIFICATION" />
-  </form>
+  <div>
+    <form action="kn_classification/" method="POST">
+      {% csrf_token %}
+      <label for="kn_value1"> </label>
+      <input
+        id="kn_value1"
+        type="text"
+        name="kn_value1"
+        value="{{kn_value1}}"
+      />
+      <br />
+      <label for="kn_value2"> </label>
+      <input
+        id="kn_value2"
+        type="text"
+        name="kn_value2"
+        value="{{kn_value2}}"
+      />
+      <br />
+      <label for="kn_value3"> </label>
+      <input
+        id="kn_value3"
+        type="text"
+        name="kn_value3"
+        value="{{kn_value3}}"
+      />
+      <br />
+      <label for="kn_value4"> </label>
+      <input
+        id="kn_value4"
+        type="text"
+        name="kn_value4"
+        value="{{kn_value4}}"
+      />
+      <br />
+      <input type="submit" value="KN CLASSIFICATION" />
+    </form>
+  </div>
 
   <form action="decision_tree/" method="POST">
     {% csrf_token %}
