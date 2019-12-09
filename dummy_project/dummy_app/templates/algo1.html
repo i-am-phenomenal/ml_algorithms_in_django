@@ -1,5 +1,22 @@
-<strong>PREDICTION : </strong> {{prediction}}
+<!-- <strong>PREDICTION : </strong> {{prediction}}
 <br />
 <strong>NAME IN DATASET :</strong> {{name_in_dataset}}
 <br />
-<strong>KN SCORE : </strong> {{kn_score}}
+<strong>KN SCORE : </strong> {{kn_score}} -->
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>NAME IN DATASET</th>
+    <th>PREDICTION</th>
+    <th>KN SCORE</th>
+  </tr>
+  {% for record in objects %}
+  <tr>
+    <th>{{record.id}}</th>
+    <th>{{record.name_in_dataset}}</th>
+    <th>{{record.prediction}}</th>
+    <th>{{record.kn_score}}</th>
+  </tr>
+  {% endfor %}
+</table>
