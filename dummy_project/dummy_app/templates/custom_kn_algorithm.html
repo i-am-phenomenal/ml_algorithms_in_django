@@ -1,0 +1,10 @@
+<form action="kn_analysis_of_coordinates/" method="POST">
+  {% csrf_token %}
+  <label for="x_coord"> </label>
+  <input id="x_coord" type="text" name="x_coord" value="{{x_coord}}" />
+  <br />
+  <label for="y_coord"></label>
+  <input id="y_coord" type="text" name="y_coord" value="{{y_coord}}" />
+  <br />
+  <input type="submit" value="Predict" />
+</form>
