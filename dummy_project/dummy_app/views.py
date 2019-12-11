@@ -11,6 +11,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import select
 from sqlalchemy.ext.declarative import declarative_base
 from .schema import KNClassification, KNValuesForm
+from .kn import generate_dataset, find_nearest_point, Point
 
 
 # CUSTOM AND PRIVATE FUNCTIONS GO HERE
@@ -51,6 +52,28 @@ def home(request):
     return render(request, "home.html")
 
 
+def custom_kn_algorithm(request):
+    return render(request, "custom_kn_algorithm.html", {})
+
+
+def kn_algo(request):
+    x_coord = 0
+    y_coord = 0
+    if request.method == 'POST':
+        form = KNValuesForm(request.POST)
+        print(form, "++++++++++++++++++")
+        if form.is_valid():
+            x_coord = form.cleaned_data.get("x_coord")
+            y_coord = form.cleaned_data.get("y_coord")
+            print([x_coord, y_coord], "INSIDE BLOCK S")
+    print([x_coord, y_coord], "OUTSIDE BLOCK ")
+    dataset = generate_dataset()
+    current_object = Point(x_coord, y_coord, "")
+    prediction = find_nearest_point(current_object)
+
+    return render(request, "custom_kn_algorithm.html", {})
+
+
 def algo1(request):
     # This is the KN Classification Algo
     records = []
@@ -69,6 +92,7 @@ def algo1(request):
     kn.fit(x_train, y_train)
     # x_new = np.array([[5, 2.9, 1, 0.2]])
     x_new = np.array([[value_1, value_2, value_3, value_4]])
+    print(" X NEW ", x_new)
     prediction = kn.predict(x_new)
     returned_values = {"prediction": prediction[0],
                        "name_in_dataset": iris_dataset["target_names"][prediction][0],
