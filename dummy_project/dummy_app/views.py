@@ -16,6 +16,7 @@ from django.http import JsonResponse
 from .models import Restaurant
 from .serializers import RestaurantSerializer
 from django.views.decorators.csrf import csrf_exempt
+from .database import Database
 
 
 # CUSTOM AND PRIVATE FUNCTIONS GO HERE
@@ -108,22 +109,33 @@ def algo1(request):
 
 
 def decision_tree(request):
-    col_names = ['pregnant', 'glucose', 'bp', 'skin',
-                 'insulin', 'bmi', 'pedigree', 'age', 'label']
-    pima = pd.read_csv("C:/practice Programs/diabetes.csv",
-                       header=None, names=col_names)
-    pima.head()
-    feature_cols = ['pregnant', 'insulin', 'bmi',
-                    'age', 'glucose', 'bp', 'pedigree']
-    x = pima[feature_cols]
-    y = pima.label
-    x_train, x_test, y_train, y_test = train_test_split(
-        x, y, test_size=0.3, random_state=1)
-    clf = DecisionTreeClassifier()
+    # dataset_engine = create_engine('sqlite:///NasaDataSetDatabase.db')
+    # Base = declarative_base()
+    # Base.metadata.bind = dataset_engine
+    # DBSession = sessionmaker(bind=dataset_engine)
+    # session = DBSession()
+    # try:
+    #     all_records = session.query(NasaData).all()
+    #     session.close()
+    #     print(all_records, "@@@@@@@@@@@@@@@@@@@@@@@@@")
+    # except IOError:
+    #     print("UNABLE TO FETCH DATA")
+    # col_names = ['pregnant', 'glucose', 'bp', 'skin',
+    #              'insulin', 'bmi', 'pedigree', 'age', 'label']
+    # pima = pd.read_csv("C:/practice Programs/diabetes.csv",
+    #                    header=None, names=col_names)
+    # pima.head()
+    # feature_cols = ['pregnant', 'insulin', 'bmi',
+    #                 'age', 'glucose', 'bp', 'pedigree']
+    # x = pima[feature_cols]
+    # y = pima.label
+    # x_train, x_test, y_train, y_test = train_test_split(
+    #     x, y, test_size=0.3, random_state=1)
+    # clf = DecisionTreeClassifier()
 
-    clf = clf.fit(x_train, y_train)
-    y_pred = clf.predict(x_test)
-    accuracy = metrics.accuracy_score(y_test, y_pred)
+    # clf = clf.fit(x_train, y_train)
+    # y_pred = clf.predict(x_test)
+    # accuracy = metrics.accuracy_score(y_test, y_pred)
     return render(request, "home.html")
 
 # API functions for react native frontend start here
