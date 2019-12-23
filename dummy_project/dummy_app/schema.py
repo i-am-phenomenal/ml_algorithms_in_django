@@ -24,6 +24,18 @@ class KNValuesForm(forms.Form):
         label="kn_value4", max_length=10, required=True)
 
 
+class NasaData(Base):
+    __tablename__ = 'nasa_data'
+    name = Column(String, nullable=False)
+    id = Column(Integer, primary_key=True)
+    nametype = Column(String, nullable=False)
+    recclass = Column(String, nullable=False)
+    mass = Column(Integer, nullable=False)
+    fall = Column(String, nullable=False)
+    reclat = Column(Float, nullable=False)
+    reclong = Column(Float, nullable=False)
+
+
 class KnPredictionSchema(Base):
     __tablename__ = 'kn_predictions_algorithm'
     id = Column(Integer, primary_key=True)
@@ -43,3 +55,5 @@ kn_engine = create_engine('sqlite:///KnClassificationDatabase.db')
 Base.metadata.create_all(kn_engine)
 kn_prediction_engine = create_engine('sqlite:///KnPredictionDatabase.db')
 Base.metadata.create_all(kn_prediction_engine)
+nasa_dataset_engine = create_engine('sqlite:///NasaDataSetDatabase.db')
+Base.metadata.create_all(nasa_dataset_engine)
