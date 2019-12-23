@@ -12,6 +12,10 @@ from sqlalchemy.sql import select
 from sqlalchemy.ext.declarative import declarative_base
 from .schema import KNClassification, KNValuesForm
 from .kn import generate_dataset, find_nearest_point, Point
+from django.http import JsonResponse
+from .models import Restaurant
+from .serializers import RestaurantSerializer
+from django.views.decorators.csrf import csrf_exempt
 
 
 # CUSTOM AND PRIVATE FUNCTIONS GO HERE
@@ -65,8 +69,6 @@ def kn_algo(request):
         if form.is_valid():
             x_coord = form.cleaned_data.get("x_coord")
             y_coord = form.cleaned_data.get("y_coord")
-            print([x_coord, y_coord], "INSIDE BLOCK S")
-    print([x_coord, y_coord], "OUTSIDE BLOCK ")
     dataset = generate_dataset()
     current_object = Point(x_coord, y_coord, "")
     prediction = find_nearest_point(current_object)
@@ -123,6 +125,27 @@ def decision_tree(request):
     y_pred = clf.predict(x_test)
     accuracy = metrics.accuracy_score(y_test, y_pred)
     return render(request, "home.html")
+
+# API functions for react native frontend start here
+
+
+def index(request):
+    rest_list = Restaurant.objects.order_by('-pub_date')
+    context = {'rest_list': rest_list}
+    return render(request, 'food/index.html', context)
+
+# Rest API endpoint
+
+
+def get_rest_list(request):
+    """
+        Return JSON list of all the data
+    """
+    if request.method == "GET":
+        rest_list = Restaurant.objects.order_by('-pub_date')
+        serializer = RestaurantSerializer(rest_list, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
 
 # PRIVATE FUNCTIONS START HERE
 
