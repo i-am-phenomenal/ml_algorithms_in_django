@@ -66,7 +66,6 @@ def kn_algo(request):
     y_coord = 0
     if request.method == 'POST':
         form = KNValuesForm(request.POST)
-        print(form, "++++++++++++++++++")
         if form.is_valid():
             x_coord = form.cleaned_data.get("x_coord")
             y_coord = form.cleaned_data.get("y_coord")
@@ -109,6 +108,22 @@ def algo1(request):
 
 
 def decision_tree(request):
+    object = Database()
+    dict_list = []
+    for record in object.fetch_names_from_given_character('A'):
+        dict = {}
+        dict['name'] = record[0]
+        dict['id'] = record[1]
+        dict['nametype'] = record[2]
+        dict['recclass'] = record[3]
+        dict['mass'] = record[4]
+        dict['fall'] = record[5]
+        dict['reclat'] = record[6]
+        dict['reclong'] = record[7]
+        dict_list.append(dict)
+
+    return render(request, 'results.html', {'records': dict_list})
+
     # dataset_engine = create_engine('sqlite:///NasaDataSetDatabase.db')
     # Base = declarative_base()
     # Base.metadata.bind = dataset_engine
@@ -136,7 +151,7 @@ def decision_tree(request):
     # clf = clf.fit(x_train, y_train)
     # y_pred = clf.predict(x_test)
     # accuracy = metrics.accuracy_score(y_test, y_pred)
-    return render(request, "home.html")
+    # return render(request, "home.html")
 
 # API functions for react native frontend start here
 
