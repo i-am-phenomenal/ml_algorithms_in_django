@@ -169,3 +169,42 @@ def find_nearest_point(current_object):
 # connection.commit()
 # connection.close()
 # for record in json_data:
+
+# ----------------------- LOADING SEED DATA FROM ANOTHER FILE ----------------------- WIP
+# def get_updated_json_dataset(json_data, recursion_counter):
+#     current_element = json_data[recursion_counter]
+#     current_element['id'] = recursion_counter
+#     json_data[recursion_counter] = current_element
+#     if recursion_counter >= len(json_data):
+#         return json_data
+#     else:
+#         get_updated_json_dataset(json_data, (recursion_counter + 1))
+
+
+# connection = psycopg2.connect(
+#     database="django_database", user="postgres", password="postgres", host="127.0.0.1", port="5432"
+# )
+# cursor = connection.cursor()
+# json_file = open('json_dataset2.txt', encoding='utf-8-sig')
+# json_data = json.load(json_file)
+# # updated_json_data = get_updated_json_dataset(json_data, 0) WIP
+# # print(updated_json_data)
+
+# for element in json_data:
+#     print(type(element['orbit_class']))
+#     print(element)
+#     psql_command = "INSERT INTO ASTEROID_DATASET (H_MAG, MOID_AU, Q_AU_1, Q_AU_2, PERIOD_YR, I_DEG, PHA, ORBIT_CLASS) VALUES ('%f' ,'%f', '%f', '%f', '%f', '%f', '%c', '%s') " % (
+#         # str(element['designation']),
+#         element['h_mag'],
+#         element['moid_au'],
+#         element['q_au_1'],
+#         element['q_au_2'],
+#         element['period_yr'],
+#         element['i_deg'],
+#         element['pha'],
+#         element['orbit_class']
+#     )
+#     cursor.execute(psql_command)
+
+# connection.commit()
+# connection.close()
